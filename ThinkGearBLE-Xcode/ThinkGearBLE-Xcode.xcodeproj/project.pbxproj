@@ -16,6 +16,8 @@
 		0412B96C1DD9FEB800A1D729 /* ScanListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0412B9661DD9FEB800A1D729 /* ScanListViewController.m */; };
 		0412B96D1DD9FEB800A1D729 /* ThinkGearCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0412B9681DD9FEB800A1D729 /* ThinkGearCentralManager.m */; };
 		0412B96E1DD9FEB800A1D729 /* ThinkGearPeripheralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0412B96A1DD9FEB800A1D729 /* ThinkGearPeripheralManager.m */; };
+		0473AAC21DDD9D0C005E90BA /* EEGPower.m in Sources */ = {isa = PBXBuildFile; fileRef = 0473AAC11DDD9D0C005E90BA /* EEGPower.m */; };
+		0473AAC51DDD9D40005E90BA /* ESense.m in Sources */ = {isa = PBXBuildFile; fileRef = 0473AAC41DDD9D40005E90BA /* ESense.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,10 @@
 		0412B9681DD9FEB800A1D729 /* ThinkGearCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThinkGearCentralManager.m; sourceTree = "<group>"; };
 		0412B9691DD9FEB800A1D729 /* ThinkGearPeripheralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThinkGearPeripheralManager.h; sourceTree = "<group>"; };
 		0412B96A1DD9FEB800A1D729 /* ThinkGearPeripheralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThinkGearPeripheralManager.m; sourceTree = "<group>"; };
+		0473AAC01DDD9D0C005E90BA /* EEGPower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EEGPower.h; sourceTree = "<group>"; };
+		0473AAC11DDD9D0C005E90BA /* EEGPower.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EEGPower.m; sourceTree = "<group>"; };
+		0473AAC31DDD9D40005E90BA /* ESense.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESense.h; sourceTree = "<group>"; };
+		0473AAC41DDD9D40005E90BA /* ESense.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESense.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +81,10 @@
 				0412B9681DD9FEB800A1D729 /* ThinkGearCentralManager.m */,
 				0412B9691DD9FEB800A1D729 /* ThinkGearPeripheralManager.h */,
 				0412B96A1DD9FEB800A1D729 /* ThinkGearPeripheralManager.m */,
+				0473AAC01DDD9D0C005E90BA /* EEGPower.h */,
+				0473AAC11DDD9D0C005E90BA /* EEGPower.m */,
+				0473AAC31DDD9D40005E90BA /* ESense.h */,
+				0473AAC41DDD9D40005E90BA /* ESense.m */,
 				0412B94F1DD9FE0E00A1D729 /* AppDelegate.h */,
 				0412B9501DD9FE0E00A1D729 /* AppDelegate.m */,
 				0412B9551DD9FE0E00A1D729 /* Main.storyboard */,
@@ -125,7 +135,7 @@
 				TargetAttributes = {
 					0412B9481DD9FE0D00A1D729 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = U8QEQ3895B;
+						DevelopmentTeam = ZHT54TY762;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -170,7 +180,9 @@
 				0412B9511DD9FE0E00A1D729 /* AppDelegate.m in Sources */,
 				0412B94E1DD9FE0E00A1D729 /* main.m in Sources */,
 				0412B96E1DD9FEB800A1D729 /* ThinkGearPeripheralManager.m in Sources */,
+				0473AAC21DDD9D0C005E90BA /* EEGPower.m in Sources */,
 				0412B96D1DD9FEB800A1D729 /* ThinkGearCentralManager.m in Sources */,
+				0473AAC51DDD9D40005E90BA /* ESense.m in Sources */,
 				0412B96C1DD9FEB800A1D729 /* ScanListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -290,7 +302,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Hong Kang (HE9WL62KN6)";
-				DEVELOPMENT_TEAM = U8QEQ3895B;
+				DEVELOPMENT_TEAM = ZHT54TY762;
 				INFOPLIST_FILE = "ThinkGearBLE-Xcode/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.chris.ThinkGearBLE-Xcode";
@@ -305,7 +317,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Hong Kang (HE9WL62KN6)";
-				DEVELOPMENT_TEAM = U8QEQ3895B;
+				DEVELOPMENT_TEAM = ZHT54TY762;
 				INFOPLIST_FILE = "ThinkGearBLE-Xcode/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.chris.ThinkGearBLE-Xcode";

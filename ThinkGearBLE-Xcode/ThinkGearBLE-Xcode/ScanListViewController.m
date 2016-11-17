@@ -21,8 +21,16 @@
 
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     
     self.title = @"Device List";
+    
+    UIButton *scanButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 45, 30)];
+    [scanButton setTitle:@"Scan" forState:UIControlStateNormal];
+    [scanButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [scanButton addTarget:self action:@selector(onScanClicked) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:scanButton];
+    self.navigationItem.rightBarButtonItem = rightItem;
     
     centralManager = [ThinkGearCentralManager shareInstance];
     centralManager.delegate = self;
@@ -34,6 +42,10 @@
 
 -(void)viewWillDisappear:(BOOL)animated{
     
+}
+
+-(void)onScanClicked{
+    [centralManager startScan];
 }
 
 - (void)didReceiveMemoryWarning {

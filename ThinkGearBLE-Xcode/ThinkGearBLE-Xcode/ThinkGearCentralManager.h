@@ -10,7 +10,7 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "ThinkGearPeripheralManager.h"
 
-#define DeviceName @"Sichiray"
+#define DeviceName @"SICHIRAY"
 
 #pragma mark -----------------key---------------
 #define thePeripheral @"thePeripheral"

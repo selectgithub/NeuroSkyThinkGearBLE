@@ -53,7 +53,7 @@ static ThinkGearCentralManager *controller;
     [peripheralDictionaryArray removeAllObjects];
     [self stopScan];
     
-    [manager scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:@"FEE7"]] options:@{CBCentralManagerScanOptionAllowDuplicatesKey: @YES}];
+    [manager scanForPeripheralsWithServices:nil options:@{CBCentralManagerScanOptionAllowDuplicatesKey: @YES}];
     NSLog(@"Start Scan!!");
 }
 -(void)stopScan{

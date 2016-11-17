@@ -16,8 +16,11 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *detailLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *rawdataLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *eSenseLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *eegPowerLabel;
 
 
 @end

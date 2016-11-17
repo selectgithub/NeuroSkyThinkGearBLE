@@ -36,8 +36,20 @@
 }
 
 #pragma -mark --BasePeripheralManagerDelegate
--(void)onRealtimeDataReceived:(NSDictionary *)dataDictionary withPeripheral:(CBPeripheral *)peripheral{
-    
+-(void)onPoorSignalReceived:(int)poorSignal withPeripheral:(CBPeripheral *)peripheral{
+    [_detailLabel setText:[NSString stringWithFormat:@"PoorSignal: %d",poorSignal]];
+}
+
+-(void)onRawdataReceived:(int)rawdata withPeripheral:(CBPeripheral *)peripheral{
+    [_rawdataLabel setText:[NSString stringWithFormat:@"Rawdata: %d",rawdata]];
+}
+
+-(void)onEEGPowerReceived:(EEGPower *)eegPower withPeripheral:(CBPeripheral *)peripheral{
+    [_eegPowerLabel setText:[NSString stringWithFormat:@"Delta: %d \n Theta: %d \n LowAlpha: %d \n HighAlpha: %d \n LowBeta: %d \n HighBeta: %d \n LowGamma: %d \n MiddleGamma: %d",eegPower.delta,eegPower.theta,eegPower.lowAlpha,eegPower.highAlpha,eegPower.lowBeta,eegPower.highBeta,eegPower.lowGamma,eegPower.middleGamma]];
+}
+
+-(void)onESenseReceived:(ESense *)eSense withPeripheral:(CBPeripheral *)peripheral{
+    [_eSenseLabel setText:[NSString stringWithFormat:@"Attention: %d Meditation: %d",eSense.attention,eSense.meditation]];
 }
 
 -(void)onUpdatedRSSI:(NSNumber *)RSSI withPeripheral:(CBPeripheral *)peripheral{
