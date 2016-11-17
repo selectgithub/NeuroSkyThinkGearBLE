@@ -7,7 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ThinkGearCentralManager.h"
 
-@interface DeviceDetailViewController : UIViewController
+@interface DeviceDetailViewController : UIViewController<ThinkGearPeripheralManagerDelegate>{
+
+    ThinkGearCentralManager *centralManager;
+}
+
+@property (weak, nonatomic) IBOutlet UILabel *detailLabel;
+
+
+
+
 
 @end

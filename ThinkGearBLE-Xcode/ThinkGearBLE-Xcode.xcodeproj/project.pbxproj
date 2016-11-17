@@ -67,10 +67,10 @@
 		0412B94B1DD9FE0E00A1D729 /* ThinkGearBLE-Xcode */ = {
 			isa = PBXGroup;
 			children = (
-				0412B9631DD9FEB800A1D729 /* DeviceDetailViewController.h */,
-				0412B9641DD9FEB800A1D729 /* DeviceDetailViewController.m */,
 				0412B9651DD9FEB800A1D729 /* ScanListViewController.h */,
 				0412B9661DD9FEB800A1D729 /* ScanListViewController.m */,
+				0412B9631DD9FEB800A1D729 /* DeviceDetailViewController.h */,
+				0412B9641DD9FEB800A1D729 /* DeviceDetailViewController.m */,
 				0412B9671DD9FEB800A1D729 /* ThinkGearCentralManager.h */,
 				0412B9681DD9FEB800A1D729 /* ThinkGearCentralManager.m */,
 				0412B9691DD9FEB800A1D729 /* ThinkGearPeripheralManager.h */,
@@ -334,6 +334,7 @@
 				0412B9621DD9FE0E00A1D729 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

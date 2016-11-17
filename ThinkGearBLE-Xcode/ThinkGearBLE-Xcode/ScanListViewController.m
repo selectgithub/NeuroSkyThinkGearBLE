@@ -17,12 +17,68 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    dataArray = [[NSArray alloc] init];
+
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    
+    self.title = @"Device List";
+    
+    centralManager = [ThinkGearCentralManager shareInstance];
+    centralManager.delegate = self;
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [centralManager startScan];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma -mark --BaseCentralManagerDelegate Function
+-(void)onScanning:(NSArray *)peripheralArray{
+    dataArray = peripheralArray;
+    [self.tableView reloadData];
+    
+}
+-(void)onConnectingPeripheral:(CBPeripheral *)peripheral{
+    
+}
+-(void)onConnectedPeripheral:(CBPeripheral *)peripheral{
+    //go to next screen;
+    [self performSegueWithIdentifier:@"gotoDetail" sender:nil];
+}
+-(void)onDisconnectedPeripheral:(CBPeripheral *)peripheral{
+    
+}
+
+#pragma -mark --UITableViewDataSource Delegate
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return dataArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    cell.textLabel.text = dataArray[indexPath.row][thePeripheralName];
+    cell.detailTextLabel.text = dataArray[indexPath.row][theRSSI];
+    return cell;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+#pragma -mark --UITableViewDelegate Delegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [centralManager connectPeripheralWithIndex:(int)indexPath.row];
+}
+
 
 /*
 #pragma mark - Navigation

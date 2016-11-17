@@ -17,11 +17,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    centralManager = [ThinkGearCentralManager shareInstance];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    if (centralManager.standardPeripheralManager) {
+        centralManager.standardPeripheralManager.delegate = self;
+    }
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [centralManager disconnect];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma -mark --BasePeripheralManagerDelegate
+-(void)onRealtimeDataReceived:(NSDictionary *)dataDictionary withPeripheral:(CBPeripheral *)peripheral{
+    
+}
+
+-(void)onUpdatedRSSI:(NSNumber *)RSSI withPeripheral:(CBPeripheral *)peripheral{
+    
 }
 
 /*

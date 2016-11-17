@@ -7,7 +7,30 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreBluetooth/CoreBluetooth.h>
 
-@interface ThinkGearPeripheralManager : NSObject
+@protocol ThinkGearPeripheralManagerDelegate <NSObject>
+
+@optional
+-(void)onRealtimeDataReceived:(NSDictionary *)dataDictionary withPeripheral:(CBPeripheral *)peripheral;
+-(void)onUpdatedRSSI:(NSNumber *)RSSI withPeripheral:(CBPeripheral *)peripheral;
+
+@end
+
+
+
+@interface ThinkGearPeripheralManager : NSObject<CBPeripheralDelegate>
+
+@property(nonatomic,strong)CBPeripheral * curPeripheral;
+
+@property (nonatomic,weak)id<ThinkGearPeripheralManagerDelegate> delegate;
+
+-(id)initWithPeripheral:(CBPeripheral *)peripheral;
+
+-(void)startRealtimeTempNotify;
+-(void)stopRealtimeTempNotify;
+
+-(void)clean;
+
 
 @end
