@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ThinkGearBLE_AndroidStudio</string>
+    <string name="ble_not_supported">BLE not supported on your device</string>
 </resources>
