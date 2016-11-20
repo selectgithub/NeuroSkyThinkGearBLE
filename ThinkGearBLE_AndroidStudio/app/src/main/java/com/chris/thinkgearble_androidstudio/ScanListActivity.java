@@ -11,6 +11,7 @@ import android.util.Log;
 import android.widget.*;
 import android.bluetooth.*;
 import android.content.*;
+import android.view.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class ScanListActivity extends AppCompatActivity{
     private final static int REQUEST_ENABLE_BT = 1;
 
     private BluetoothGatt gatt;
-    private List<BluetoothDevice> deviceList;
+    private ArrayList<BluetoothDevice> deviceList;
 
     private String uServiceUUID                        = "0000ffe0-0000-1000-8000-00805f9b34fb";
     private String uNotifyCharacteristicUUID           = "0000ffe1-0000-1000-8000-00805f9b34fb";
@@ -46,6 +47,12 @@ public class ScanListActivity extends AppCompatActivity{
 
     private int raw,poorsignal;
 
+    private ListView deviceListView;
+    private ArrayList<String> deviceNameList;
+    private ArrayList<String> deviceMACList;
+
+    private ArrayAdapter listViewAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +60,24 @@ public class ScanListActivity extends AppCompatActivity{
         bleManager = ThinkGearBLEManager.getInstance();
 
         deviceList = new ArrayList<>();
+        deviceNameList = new ArrayList<>();
+        deviceMACList = new ArrayList<>();
+        deviceListView = (ListView)findViewById(R.id.device_list);
+
+        listViewAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, deviceNameList);
+
+        deviceListView.setAdapter(listViewAdapter);
+
+
+        deviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d("Chris", "Clicked Index:" + i + " lll:" + l );
+                connectWith(ScanListActivity.this,i);
+            }
+        });
+
 
         // Use this check to determine whether BLE is supported on the device. Then
         // you can selectively disable BLE-related features.
@@ -74,11 +99,21 @@ public class ScanListActivity extends AppCompatActivity{
 
     }
 
+    public void onStartScanClicked(View view){
+        startScan();
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
         //bleManager.startScan();
         startScan();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        disconnect();
     }
 
     /*==================Android API 21 Scan========================*/
@@ -93,12 +128,15 @@ public class ScanListActivity extends AppCompatActivity{
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void stopScan(){
         if (mBluetoothAdapter != null) {
+            Log.d("Chris", "Stop Scan!!!");
             mBluetoothAdapter.getBluetoothLeScanner().stopScan(scanCallback);
         }
     }
 
     public void connectWith(Context context, int index){
+        stopScan();
         gatt = deviceList.get(index).connectGatt(context, true, gattCallback);
+        parserStatus = PARSER_STATE_SYNC;
     }
 
     public void disconnect(){
@@ -119,15 +157,24 @@ public class ScanListActivity extends AppCompatActivity{
 
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
-            deviceList.add(result.getDevice());
-
             Log.d("Chris", "Device Name:" + result.getDevice().getName());
             super.onScanResult(callbackType, result);
 
             if (result.getDevice().getName().equalsIgnoreCase("SICHIRAY")){
-                stopScan();
-                gatt = result.getDevice().connectGatt(ScanListActivity.this, true, gattCallback);
-                parserStatus = PARSER_STATE_SYNC;
+
+                if (deviceMACList.contains(result.getDevice().getAddress())){
+                    int index = deviceMACList.indexOf(result.getDevice().getAddress());
+                    deviceList.remove(index);
+                    deviceList.add(index,result.getDevice());
+                    deviceNameList.remove(index);
+                    deviceNameList.add(index,result.getDevice().getName() + "RSSI:" + result.getRssi());
+                }else {
+                    deviceMACList.add(result.getDevice().getAddress());
+                    deviceList.add(result.getDevice());
+                    deviceNameList.add(result.getDevice().getName() + "RSSI:" + result.getRssi());
+                }
+
+                listViewAdapter.notifyDataSetChanged();
             }
         }
     };

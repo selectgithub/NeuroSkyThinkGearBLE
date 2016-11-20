@@ -10,8 +10,19 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.chris.thinkgearble_androidstudio.ScanListActivity">
 
-    <TextView
+    <Button
+        android:text="Scan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/scan_button"
+        android:onClick="onStartScanClicked (ScanListActivity)" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/scan_button"
+        android:layout_alignParentStart="true"
+        android:id="@+id/device_list" />
 </RelativeLayout>
