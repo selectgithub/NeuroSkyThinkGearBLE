@@ -192,6 +192,7 @@ public class ThinkGearBLEService extends Service implements BluetoothAdapter.LeS
         stopScan();
         gatt = deviceList.get(index).connectGatt(this, true, gattCallback);
         parserStatus = PARSER_STATE_SYNC;
+        Log.d("Chris", "Connected With Index: " + index);
     }
 
     public void disconnect(){

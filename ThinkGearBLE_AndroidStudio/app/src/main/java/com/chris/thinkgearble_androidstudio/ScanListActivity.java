@@ -77,7 +77,6 @@ public class ScanListActivity extends AppCompatActivity implements ThinkGearBLES
     }
 
     public void onStartScanClicked(View view){
-        ///
         Log.d("Chris", "onStartScanClicked!!");
         if (thinkGearService != null) {
             thinkGearService.startScan();
@@ -98,13 +97,15 @@ public class ScanListActivity extends AppCompatActivity implements ThinkGearBLES
     }
 
     public void onDeviceScanning(ThinkGearBLEService thinkGearBLEService, ArrayList<String> deviceNameList){
-        this.deviceNameList = deviceNameList;
+        this.deviceNameList.clear();
+        this.deviceNameList.addAll(deviceNameList);
         listViewAdapter.notifyDataSetChanged();
         Log.d("Chris", "On Device Scanning");
     }
     public void onDeviceConnected(ThinkGearBLEService thinkGearBLEService){
         Intent intent = new Intent(this,DeviceDetailActivity.class);
         startActivity(intent);
+        Log.d("Chris", "On Device Connected");
     }
     public void onDeviceDisconnected(ThinkGearBLEService thinkGearBLEService){
 
