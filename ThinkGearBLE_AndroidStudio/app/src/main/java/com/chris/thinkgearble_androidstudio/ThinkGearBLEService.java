@@ -378,10 +378,9 @@ public class ThinkGearBLEService extends Service implements BluetoothAdapter.LeS
                     eSense.attention   = payload[29];
                     eSense.meditation  = payload[31];
 
-                    Log.d("Chris", "PoorSignal:"+ poorSignal);
-                    Log.d("Chris", "delta:" + eegPower.delta);
-                    Log.d("Chris", "attention:" + eSense.attention);
-                    Log.d("Chris", "meditation:" + eSense.meditation);
+                    //Log.d("Chris", "PoorSignal:"+ poorSignal);
+                    //Log.d("Chris", eegPower.toString());
+                    //Log.d("Chris", eSense.toString());
 
                     if (thinkGearDataListener != null){
                         thinkGearDataListener.onPoorSignalReceived(ThinkGearBLEService.this, poorSignal);
@@ -432,7 +431,7 @@ public class ThinkGearBLEService extends Service implements BluetoothAdapter.LeS
         public void onCharacteristicChanged(BluetoothGatt gatt,
                                             BluetoothGattCharacteristic characteristic) {
             if (characteristic.getUuid().toString().equalsIgnoreCase(uNotifyCharacteristicUUID)){
-                Log.d("Chris", "Value Length:" + characteristic.getValue().length);
+                //Log.d("Chris", "Value Length:" + characteristic.getValue().length);
                 onReceivedDataPacket(characteristic.getValue());
             }
 

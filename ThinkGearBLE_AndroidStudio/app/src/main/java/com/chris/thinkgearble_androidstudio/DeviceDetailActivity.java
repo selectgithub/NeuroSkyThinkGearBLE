@@ -6,7 +6,10 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
+import android.util.Log;
 import android.widget.TextView;
 
 /**
@@ -14,6 +17,11 @@ import android.widget.TextView;
  */
 
 public class DeviceDetailActivity extends Activity implements ThinkGearBLEService.IThinkGearDataListener{
+    private final int MSG_TYPE_POORSIGNAL = 1;
+    private final int MSG_TYPE_RAWDATA    = 2;
+    private final int MSG_TYPE_EEGPOWER   = 3;
+    private final int MSG_TYPE_ESENSE     = 4;
+
     ThinkGearBLEService thinkGearService;
     ThinkGearBLEService.MyBinder binder;
 
@@ -44,6 +52,7 @@ public class DeviceDetailActivity extends Activity implements ThinkGearBLEServic
         rawdataTextView = (TextView)findViewById(R.id.rawdataTextView);
         eSenseTextView = (TextView)findViewById(R.id.eSenseTextView);
         eegPowerTextView = (TextView)findViewById(R.id.EEGPowerTextView);
+        poorSignalTextView.setText("PoorSignal: 200");
 
         Intent intent = new Intent(DeviceDetailActivity.this,ThinkGearBLEService.class);
         bindService(intent,serviceConnection, Service.BIND_AUTO_CREATE);
@@ -60,19 +69,53 @@ public class DeviceDetailActivity extends Activity implements ThinkGearBLEServic
         super.onStart();
     }
 
+    private Handler dataHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case MSG_TYPE_POORSIGNAL:
+                    poorSignalTextView.setText("PoorSignal: " + msg.arg1);
+                    break;
+                case MSG_TYPE_RAWDATA:
+                    rawdataTextView.setText("Rawdata: " + msg.arg1);
+                    break;
+                case MSG_TYPE_EEGPOWER:
+                    eegPowerTextView.setText(msg.obj.toString());
+                    break;
+                case MSG_TYPE_ESENSE:
+                    eSenseTextView.setText(msg.obj.toString());
+                    break;
+            }
+        }
+    };
+
     public void onPoorSignalReceived(ThinkGearBLEService thinkGearBLEService, int poorSignal){
-        poorSignalTextView.setText("PoorSignal: " + poorSignal);
+        Message msg = new Message();
+        msg.what = MSG_TYPE_POORSIGNAL;
+        msg.arg1 = poorSignal;
+        dataHandler.sendMessage(msg);
+        Log.d("Chris","-----onPoorSignalReceived: " + poorSignal);
     }
     public void onRawdataReceived(ThinkGearBLEService thinkGearBLEService, int rawdata){
-        rawdataTextView.setText("Rawdata: " + rawdata);
+        Message msg = new Message();
+        msg.what = MSG_TYPE_RAWDATA;
+        msg.arg1 = rawdata;
+        dataHandler.sendMessage(msg);
+        //Log.d("Chris","-----onRawdataReceived: " + rawdata);
     }
     public void onEEGPowerReceived(ThinkGearBLEService thinkGearBLEService, EEGPower eegPower){
-        eegPowerTextView.setText("Delta: " + eegPower.delta + "\nTheta: " + eegPower.theta +
-                "\nLowAlpha: " + eegPower.lowAlpha + "\nHighAlpha: " + eegPower.highAlpha +
-        "\nLowBeta: " + eegPower.lowBeta + "\nHighBeta: " + eegPower.highBeta +
-        "\nLowGamma: " + eegPower.lowGamma + "\nMiddleGamma: " + eegPower.middleGamma);
+        Message msg = new Message();
+        msg.what = MSG_TYPE_EEGPOWER;
+        msg.obj = eegPower;
+        dataHandler.sendMessage(msg);
+        //Log.d("Chris","-----onEEGPowerReceived" + eegPower.toString());
     }
     public void onESenseReceived(ThinkGearBLEService thinkGearBLEService, ESense eSense){
-        eSenseTextView.setText("Attention: " + eSense.attention + " Meditation: " + eSense.meditation);
+        Message msg = new Message();
+        msg.what = MSG_TYPE_ESENSE;
+        msg.obj = eSense;
+        dataHandler.sendMessage(msg);
+        //Log.d("Chris","-----onESenseReceived: " + eSense.toString());
     }
 }

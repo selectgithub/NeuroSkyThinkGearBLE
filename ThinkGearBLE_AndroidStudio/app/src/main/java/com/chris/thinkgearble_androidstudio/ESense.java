@@ -7,4 +7,9 @@ package com.chris.thinkgearble_androidstudio;
 public class ESense {
 
     public int attention,meditation;
+
+    @Override
+    public String toString() {
+        return "Attention:" + attention + "\nMeditation:" + meditation;
+    }
 }
