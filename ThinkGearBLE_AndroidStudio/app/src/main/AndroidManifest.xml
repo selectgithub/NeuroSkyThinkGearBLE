@@ -24,6 +24,9 @@
         <activity android:name=".DeviceDetailActivity">
 
         </activity>
+        <service android:name=".ThinkGearBLEService">
+
+        </service>
     </application>
 
 </manifest>
