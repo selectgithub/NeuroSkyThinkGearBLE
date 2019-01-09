@@ -20,6 +20,8 @@ public class Demo : MonoBehaviour
         ThinkGearManager.instance.DataReceiveEvent += ShowDataList;
         ThinkGearManager.instance.ConnectedEvent += SwithPage;
         ThinkGearManager.instance.DisConnectedEvent += DisConnected;
+        ThinkGearManager.instance.BlueToothCloseEvent += ShowBlueClose;
+        ThinkGearManager.instance.BlueToothOpenEvent += ShowBlueOpen;
         scanBtn.onClick.AddListener(() =>
         {
             ThinkGearManager.instance.StartScan();
@@ -27,9 +29,18 @@ public class Demo : MonoBehaviour
         });
     }
 
+    public void ShowBlueClose() {
+        text.text = "蓝牙关闭了";
+    }
+    public void ShowBlueOpen()
+    {
+        text.text = "蓝牙开启了";
+    }
     public void DisConnected() {
         dataText.text = "丢失连接";
-     }
+        scanListPanel.SetActive(true);
+        dataPanel.SetActive(false);
+    }
     //连接成功，切换界面
     public void SwithPage()
     {
