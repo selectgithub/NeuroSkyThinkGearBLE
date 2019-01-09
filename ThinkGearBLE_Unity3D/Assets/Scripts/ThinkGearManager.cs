@@ -81,6 +81,7 @@ public class ThinkGearManager : MonoBehaviour
             iOSStopScan();
         }
         catch { }
+        deviceList.Clear();
     }
     //主动断开连接
     public void Disconnect()
@@ -141,6 +142,7 @@ public class ThinkGearManager : MonoBehaviour
         {
             BlueToothCloseEvent();
         }
+        deviceList.Clear();
     }
     //蓝牙打开回调
     void onBlueToothOpen(string isTrue)
